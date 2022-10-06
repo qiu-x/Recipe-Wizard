@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recipe Wizard is a AI powered recipe generator.">
+    <meta property="og:title" content="Recipe Wizard 🍳 - The auto-magical recipe generator">
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Recipe Wizard 🍳"/>
+    <meta property="og:description" content="AI powered recipe generator"/>
+    <title>Recipe Wizard 🍳</title>
+  </head>
+  <body>
+    <div id="main-view">
+
+      <div class="tabs">
+        <div class="tabs left">
+          <button id="app-button" class="tablinks" onclick="openTab(event, 'app')">App</button>
+        </div>
+        <div class="tabs right">
+          <button class="tablinks" onclick="openTab(event, 'how-to')">How to</button>
+          <button class="tablinks" onclick="openTab(event, 'about')">About</button>
+        </div>
+      </div>
+
+      <div id="app" class="tabcontent">
+        <div class="center">
+          <h1>Recipe<br>Wizard</h1>
+          <p>The auto-magical recipe 🍳 generator.</p>
+          <br>
+          <div class="textarea-container">
+            <textarea id="ingredients-input" name="ingredients" placeholder="Enter your list of ingredients (comma separated)"></textarea>
+          </div>
+          <br>
+          <br>
+          <button class="app-button" style="background-image:url(res/box.gif);"onclick="">Generate!</button>
+        </div>
+      </div>
+      
+      <div id="how-to" class="tabcontent">
+        <div class="center">
+          <h2>How to</h2>
+          <p>Do you have a brunch of random ingredients in your kitchen and don't 
+           know what to do with them?<br><br>We got you covered! Just enter the list of 
+           ingredients that you want to use and the recipe will be generated for you. 
+           <br>It really is that easy!</p> 
+        </div>
+      </div>
+      
+      <div id="about" class="tabcontent">
+        <div class="center">
+          <h2>About</h2>
+          <p>Recipe Wizard is an automatic AI powered recipe generator. Under the hood we use OpenAI's GPT-3 language model to generate high quality answers.<br><br>Source available on <a href="https://github.com/qiu-x/...">GitHub</a> </p>
+        </div>
+      </div>
+
+    </div>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

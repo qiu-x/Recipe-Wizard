@@ -1,0 +1,172 @@
+body {
+  font-family: Arial;
+  background-color: #073642;
+  color: #fdf6e3;
+}
+
+a {
+  color: #2aa198;
+}
+
+#main-view {
+  top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 95%;
+  max-height: 100%;
+  width: 90%;
+  max-width: 900px;
+}
+
+@media only screen and (max-device-width: 500px) {
+  #main-view {
+    width: 100%;
+  }
+}
+
+/* Style the tabs container */
+.tabs {
+  overflow: hidden;
+  background-color: #586e75;
+  border-radius: 20px;
+}
+
+.tabs.left, .tabs.right {
+  border-radius:  0px;
+}
+
+.tabs.left {
+  float: left;
+}
+
+.tabs.right {
+  float: right;
+}
+
+/* Style the tabs */
+.tabs button {
+  background-color: inherit; 
+  color: inherit; 
+  float: left;
+  border: none; 
+  outline: none; 
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of tab buttons on hover */
+.tabs button:hover {
+  background-color: #839496;
+}
+
+/* Create an active/current tablink class */
+.tabs button.active {
+  background-color: #657b83;
+}
+
+.center {
+  margin: 0;
+  width: 80%;
+  max-width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-device-width: 500px) {
+  .center {
+    width: 95%;
+  }
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  text-align: center;
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+} 
+
+.tabcontent h1 {
+  font-size: 100px;
+}
+
+@media only screen and (max-device-width: 500px), (max-device-height: 600px) {
+  .tabcontent h1 {
+    font-size: 75px;
+  }
+}
+
+.tabcontent h2 {
+  font-size: 40px;
+}
+.tabcontent p {
+  font-size: 30px;
+}
+
+@media only screen and (max-device-width: 500px) {
+  .tabcontent p {
+    font-size: 25px;
+  }
+}
+
+.textarea-container {
+  width: 60%;
+  padding: 10px;
+  padding-right: 14px;
+  text-align: center;
+  background: #fdf6e3;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+}
+
+@media only screen and (max-device-width: 800px) {
+  .textarea-container {
+    width: 85%;
+  }
+}
+
+#ingredients-input {
+  color: #073642;
+  width: 100%;
+  overflow-y: auto;
+  background: #fdf6e3;
+  border: none;
+  overflow-x: none;
+  overflow-y: auto;
+  resize: vertical;
+  outline: none;
+}
+.app-button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #6c71c4;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.app-button:hover {background-color: #505493}
+
+.app-button:active {
+  background-color: #505493;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
