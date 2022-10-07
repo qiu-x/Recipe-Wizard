@@ -67,14 +67,27 @@ a {
 }
 
 .center {
-  margin: 0;
   width: 80%;
   max-width: 700px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-device-height: 400px) {
+  .center {
+    margin: 0;
+    width: 80%;
+    max-width: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media only screen and (max-device-height: 400px) {
+  .center {
+    margin: auto;
+  }
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -100,9 +113,27 @@ a {
   font-size: 100px;
 }
 
-@media only screen and (max-device-width: 500px), (max-device-height: 600px) {
+@media only screen and (max-device-width: 500px), (max-device-height: 700px) {
   .tabcontent h1 {
-    font-size: 75px;
+    font-size: 70px;
+  }
+}
+
+@media only screen and (max-device-height: 650px) {
+  .tabcontent h1 {
+    font-size: 55px;
+  }
+}
+
+@media only screen and (max-device-height: 400px) {
+  .tabcontent h1 {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-device-height: 550px) {
+  .tabcontent h1 > br {
+    display: none;
   }
 }
 
@@ -110,12 +141,18 @@ a {
   font-size: 40px;
 }
 .tabcontent p {
-  font-size: 30px;
+  font-size: 27px;
 }
 
 @media only screen and (max-device-width: 500px) {
   .tabcontent p {
-    font-size: 25px;
+    font-size: 23px;
+  }
+}
+
+@media only screen and (max-device-height: 500px), (max-device-width: 350px){
+  .tabcontent p {
+    font-size: 18px;
   }
 }
 
@@ -136,6 +173,18 @@ a {
   }
 }
 
+@media only screen and (max-device-height: 550px) {
+  #app p {
+    display: none;
+  }
+  #app br {
+    display: none;
+  }
+  .app-button {
+    margin-top: 10px;
+  }
+}
+
 #ingredients-input {
   color: #073642;
   width: 100%;
@@ -147,6 +196,12 @@ a {
   resize: vertical;
   outline: none;
 }
+
+@keyframes loading-animation {
+  from { padding-left: 25; background-image: none; }
+  to {padding-left: 0;  }
+}
+
 .app-button {
   display: inline-block;
   padding: 15px 25px;
@@ -160,6 +215,29 @@ a {
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
+  width: 185px;
+}
+
+.app-button .bg {
+  float: right;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(res/box.gif);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  margin-left: -50px;
+  margin-right: -13px;
+}
+
+.app-button.loading {
+  transition: padding 0.2s ease-in-out;
+  padding-left: 0px;
+}
+
+.app-button.loading .bg {
+  opacity: 1;
 }
 
 .app-button:hover {background-color: #505493}
@@ -169,4 +247,32 @@ a {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+@keyframes show {
+  from { transform: scale(0.0); opacity: 0; }
+  to { transform: scale(1.0); opacity: 1; }
+}
+
+.recipe {
+  text-align: left;
+  background-color: #657b83 ;
+  padding: 15px;
+  margin: auto;
+  margin-top: 35px;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 15px;
+  animation: show 1s;
+  white-space: pre-wrap;
+}
+
+@media only screen and (max-device-width: 500px) {
+  .recipe {
+    width: 90%;
+  }
+  #app-result {
+    padding: 0px;
+  }
+}
+
 

@@ -26,7 +26,7 @@
 
       <div id="app" class="tabcontent">
         <div class="center">
-          <h1>Recipe<br>Wizard</h1>
+          <h1>Recipe<br> Wizard</h1>
           <p>The auto-magical recipe 🍳 generator.</p>
           <br>
           <div class="textarea-container">
@@ -34,8 +34,15 @@
           </div>
           <br>
           <br>
-          <button class="app-button" style="background-image:url(res/box.gif);"onclick="">Generate!</button>
+          <button id="generate-button" class="app-button" onclick="getRecipe()">Generate!<div class="bg"></div></button>
         </div>
+      </div>
+
+      <div id="app-result" class="tabcontent">
+        <div id="recipe" class="recipe">
+        </div>
+        <br>
+        <button class="app-button" style=""onclick="openTab(event, 'app')">Try again</button>
       </div>
       
       <div id="how-to" class="tabcontent">
