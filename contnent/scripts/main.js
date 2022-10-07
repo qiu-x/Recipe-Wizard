@@ -31,7 +31,8 @@ async function getRecipe() {
 	let button = document.getElementById("generate-button");
 	button.classList.add("loading");
 	let textarea = document.getElementById("ingredients-input");
-	let textarea_content = textarea.value;
+	let textarea_content = textarea.value.trim();
+	console.log(textarea_content);
 	if (textarea_content.length < 3) {
 		button.classList.remove("loading");
 		alert("Please enter at least one ingredient");
