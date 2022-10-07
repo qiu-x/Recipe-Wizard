@@ -17,8 +17,14 @@ function openTab(evt, tabName) {
 // Open app tab on start
 document.getElementById("app-button").click();
 
-function post(url, data) {
-	return fetch(url, {method: "POST", redirect: "follow", body: JSON.stringify(data)})
+// POST request wrapper
+function post(url, ms, data) {
+	const controller = new AbortController()
+	const signal = controller.signal;
+	const promise = fetch(url, { signal: signal, method: "POST", redirect: "follow", body: JSON.stringify(data)});
+	if (signal) signal.addEventListener("abort", () => controller.abort());
+	const timeout = setTimeout(() => controller.abort(), ms);
+	return promise.finally(() => clearTimeout(timeout));
 }
 
 async function getRecipe() {
@@ -31,10 +37,32 @@ async function getRecipe() {
 		alert("Please enter at least one ingredient");
 		return;
 	}
-	const resp = await post("/req", {
-		Ingredients: textarea_content,
-	});
-	const json = await resp.json();
+	let resp;
+	try {
+		resp = await post("/req", 20000, {
+			Ingredients: textarea_content,
+		});
+	} catch (err) {
+		button.classList.remove("loading");
+		if (err.name === "AbortError") {
+			alert("Timeout: It took more than 20 seconds to get the result!");
+		} else if (err.name === "TypeError") {
+			alert("AbortSignal.timeout() method is not supported");
+		} else {
+			// A network error, or some other problem.
+			console.log(err);
+			alert("Error: Server does not respond. Please check your internet connection.");
+		}
+		return;
+	}
+	if (!resp.ok) {
+		button.classList.remove("loading");
+		alert(`Error: ${resp.status}`);
+		return;
+	}
+	let json;
+	json = await resp.json();
+
 	console.log(json);
 	if (json.errorcode != "none") {
 		button.classList.remove("loading");

@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-var RecipePrompt = `Write a named recipe with the following ingredients:
+var RecipePrompt = `Write a delicious named recipe with the following ingredients:
 %s.
 
 Title and recipe:`

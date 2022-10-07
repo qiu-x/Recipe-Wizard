@@ -18,7 +18,7 @@ a {
   max-width: 900px;
 }
 
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 500px) {
   #main-view {
     width: 100%;
   }
@@ -71,7 +71,7 @@ a {
   max-width: 700px;
 }
 
-@media only screen and (min-device-height: 400px) {
+@media only screen and (min-device-height: 650px) {
   .center {
     margin: 0;
     width: 80%;
@@ -84,13 +84,13 @@ a {
   }
 }
 
-@media only screen and (max-device-height: 400px) {
+@media only screen and (max-height: 650px) {
   .center {
     margin: auto;
   }
 }
 
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 500px) {
   .center {
     width: 95%;
   }
@@ -113,25 +113,25 @@ a {
   font-size: 100px;
 }
 
-@media only screen and (max-device-width: 500px), (max-device-height: 700px) {
+@media only screen and (max-width: 500px), (max-height: 700px) {
   .tabcontent h1 {
     font-size: 70px;
   }
 }
 
-@media only screen and (max-device-height: 650px) {
+@media only screen and (max-height: 650px) {
   .tabcontent h1 {
     font-size: 55px;
   }
 }
 
-@media only screen and (max-device-height: 400px) {
+@media only screen and (max-height: 400px) {
   .tabcontent h1 {
     font-size: 40px;
   }
 }
 
-@media only screen and (max-device-height: 550px) {
+@media only screen and (max-height: 550px) {
   .tabcontent h1 > br {
     display: none;
   }
@@ -144,13 +144,13 @@ a {
   font-size: 27px;
 }
 
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 500px) {
   .tabcontent p {
     font-size: 23px;
   }
 }
 
-@media only screen and (max-device-height: 500px), (max-device-width: 350px){
+@media only screen and (max-height: 500px), (max-width: 350px){
   .tabcontent p {
     font-size: 18px;
   }
@@ -159,7 +159,7 @@ a {
 .textarea-container {
   width: 60%;
   padding: 10px;
-  padding-right: 14px;
+  padding-right: 16px;
   text-align: center;
   background: #fdf6e3;
   margin-left: auto;
@@ -167,13 +167,13 @@ a {
   border-radius: 20px;
 }
 
-@media only screen and (max-device-width: 800px) {
+@media only screen and (max-width: 800px) {
   .textarea-container {
     width: 85%;
   }
 }
 
-@media only screen and (max-device-height: 550px) {
+@media only screen and (max-height: 550px) {
   #app p {
     display: none;
   }
@@ -266,7 +266,7 @@ a {
   white-space: pre-wrap;
 }
 
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 500px) {
   .recipe {
     width: 90%;
   }
