@@ -17,6 +17,7 @@ var RecipePrompt = `Write a delicious named recipe with the following ingredient
 Title and recipe:`
 
 func CompletionRequest(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Processing request...")
 	var resp gogpt.CompletionResponse
 	error_code := "none"
 	type Response struct {

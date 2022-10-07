@@ -57,7 +57,11 @@ async function getRecipe() {
 	}
 	if (!resp.ok) {
 		button.classList.remove("loading");
-		alert(`Error: ${resp.status}`);
+		if (resp.status == 429) {
+			alert("Request limit exceeded. Please wait for a moment.");
+		} else {
+			alert(`Error: ${resp.status}`);
+		}
 		return;
 	}
 	let json;

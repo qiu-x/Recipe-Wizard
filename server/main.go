@@ -108,22 +108,16 @@ func CheckMethod(t string, next http.Handler) http.Handler {
 	})
 }
 
-var limiter = NewIPRateLimiter(0.7, 3)
-
+var limiter = NewIPRateLimiter(0.1, 5)
 
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("../contnent"))
 	mux.Handle("/", FileServerFilter(fs))
-	mux.Handle("/ok", IPLimit(http.HandlerFunc(okHandler)))
-	mux.Handle("/req", CheckMethod("POST", http.HandlerFunc(CompletionRequest)))
+	mux.Handle("/req", CheckMethod("POST", IPLimit(http.HandlerFunc(CompletionRequest))))
 
 	log.Println("Listening on port: ", PORT)
 	if err := http.ListenAndServe(":" + PORT, mux); err != nil {
 		log.Fatalf("Server error: %s", err.Error())
 	}
-}
-
-func okHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello there"))
 }
