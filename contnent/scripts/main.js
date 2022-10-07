@@ -39,7 +39,7 @@ async function getRecipe() {
 	}
 	let resp;
 	try {
-		resp = await post("/req", 20000, {
+		resp = await post(window.location.href + "/req", 20000, {
 			Ingredients: textarea_content,
 		});
 	} catch (err) {
