@@ -108,7 +108,7 @@ func CheckMethod(t string, next http.Handler) http.Handler {
 	})
 }
 
-var limiter = NewIPRateLimiter(0.1, 5)
+var limiter = NewIPRateLimiter(0.05, 3)
 
 func main() {
 	mux := http.NewServeMux()
