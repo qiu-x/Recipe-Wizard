@@ -28,6 +28,7 @@ func CompletionRequest(w http.ResponseWriter, r *http.Request) {
 		if len(resp.Choices) > 0 {
 			response = Response{error_code, strings.TrimSpace(resp.Choices[0].Text)}
 		} else {
+			fmt.Println("Request Failed!:", error_code)
 			response = Response{error_code, ""}
 		}
 		response_json, err := json.Marshal(response)
