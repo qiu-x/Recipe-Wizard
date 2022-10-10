@@ -1,4 +1,4 @@
-# Recipe Wizard - an GPT-3 powered recipe generator
+# Recipe Wizard - a GPT-3 powered recipe generator
 
 <img width="700px" src="preview.png" alt="Preview" />
   
