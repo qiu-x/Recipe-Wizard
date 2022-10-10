@@ -4,7 +4,8 @@
   
 ## Self-hosting
 
-	cd server
+	git clone 'https://github.com/qiu-x/Recipe-Wizard'
+	cd Recipe-Wizard/server
 	go build
 	./app_server -p $YOUR_PORT -k $YOUR_OPENAI_API_KEY
 
