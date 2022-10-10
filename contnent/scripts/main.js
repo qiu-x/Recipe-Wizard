@@ -27,7 +27,13 @@ function post(url, ms, data) {
 	return promise.finally(() => clearTimeout(timeout));
 }
 
+let loading = false;
+
 async function getRecipe() {
+	if (loading) {
+		return
+	}
+	loading = true;
 	let button = document.getElementById("generate-button");
 	button.classList.add("loading");
 	let textarea = document.getElementById("ingredients-input");
@@ -35,6 +41,7 @@ async function getRecipe() {
 	console.log(textarea_content);
 	if (textarea_content.length < 3) {
 		button.classList.remove("loading");
+		loading = false;
 		alert("Please enter at least one ingredient");
 		return;
 	}
@@ -45,6 +52,7 @@ async function getRecipe() {
 		});
 	} catch (err) {
 		button.classList.remove("loading");
+		loading = false;
 		if (err.name === "AbortError") {
 			alert("Timeout: It took more than 20 seconds to get the result!");
 		} else if (err.name === "TypeError") {
@@ -58,6 +66,7 @@ async function getRecipe() {
 	}
 	if (!resp.ok) {
 		button.classList.remove("loading");
+		loading = false;
 		if (resp.status == 429) {
 			alert("Request limit exceeded. Please wait for a moment.");
 		} else {
@@ -71,10 +80,12 @@ async function getRecipe() {
 	console.log(json);
 	if (json.errorcode != "none") {
 		button.classList.remove("loading");
+		loading = false;
 		alert(json.errorcode);
 		return;
 	}
 	button.classList.remove("loading");
+	loading = false;
 	showCompletion(json.completion);
 }
 
