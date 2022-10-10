@@ -6,5 +6,5 @@
 
 	cd server
 	go build
-	./app_server -p $YOUR_PORT -k $YOUR_API_KEY
+	./app_server -p $YOUR_PORT -k $YOUR_OPENAI_API_KEY
 
