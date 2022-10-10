@@ -1,6 +1,6 @@
 # Recipe Wizard - an AI powered recipe generator
 
-<img width="1000px" src="preview.png" alt="Preview" />
+<img width="700px" src="preview.png" alt="Preview" />
   
 ## Self-hosting
 
