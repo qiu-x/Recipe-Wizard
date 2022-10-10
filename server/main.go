@@ -5,6 +5,7 @@ import (
 	"golang.org/x/time/rate"
 	gogpt "github.com/sashabaranov/go-gpt3"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -56,28 +57,26 @@ func NewIPRateLimiter(r rate.Limit, b int) *IPRateLimiter {
 	}
 }
 
-func (i *IPRateLimiter) AddIP(ip string) *rate.Limiter {
-	i.mu.Lock()
-	defer i.mu.Unlock()
-	limiter := rate.NewLimiter(i.r, i.b)
-	i.ips[ip] = limiter
-	return limiter
+func (i *IPRateLimiter) getLimiter(ip string) *rate.Limiter {
+	lim, exists := i.ips[ip]
+	if !exists {
+		lim = rate.NewLimiter(i.r, i.b)
+		i.ips[ip] = lim
+	}
+	return lim
 }
 
-func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
+func (i *IPRateLimiter) CheckIP(ip string) bool {
 	i.mu.Lock()
-	limiter, exists := i.ips[ip]
-	i.mu.Unlock()
-	if !exists {
-		limiter = i.AddIP(ip)
-	}
-	return limiter
+	defer i.mu.Unlock()
+	lim := i.getLimiter(ip)
+	return lim.Allow()
 }
 
 func IPLimit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		limiter := limiter.GetLimiter(r.RemoteAddr)
-		if !limiter.Allow() {
+		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+		if !limiter.CheckIP(ip) {
 			http.Error(w, http.StatusText(http.StatusTooManyRequests),
 				http.StatusTooManyRequests)
 			return
@@ -108,7 +107,7 @@ func CheckMethod(t string, next http.Handler) http.Handler {
 	})
 }
 
-var limiter = NewIPRateLimiter(0.05, 3)
+var limiter = NewIPRateLimiter(0.075, 7)
 
 func main() {
 	mux := http.NewServeMux()
