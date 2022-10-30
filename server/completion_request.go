@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	gogpt "github.com/sashabaranov/go-gpt3"
 	"gopkg.in/validator.v2"
 	"encoding/json"
 	"net/http"
-	"io/ioutil"
+	"io"
 	"strings"
 )
 
@@ -17,7 +18,7 @@ var RecipePrompt = `Write a delicious named recipe with the following ingredient
 Title and recipe:`
 
 func CompletionRequest(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Processing request...")
+	log.Println("Processing request...")
 	var resp gogpt.CompletionResponse
 	error_code := "none"
 	type Response struct {
@@ -29,17 +30,20 @@ func CompletionRequest(w http.ResponseWriter, r *http.Request) {
 		if len(resp.Choices) > 0 {
 			response = Response{error_code, strings.TrimSpace(resp.Choices[0].Text)}
 		} else {
-			fmt.Println("Request Failed!:", error_code)
+			log.Println("Request Failed!:", error_code)
 			response = Response{error_code, ""}
 		}
 		response_json, err := json.Marshal(response)
 		if err != nil {
-			fmt.Println(err.Error())
+			log.Println(err.Error())
 			return
 		}
-		w.Write(response_json)
+		_, err = w.Write(response_json)
+		if err != nil {
+			log.Println(err)
+		}
 	}()
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		error_code = err.Error()
 		return
@@ -47,7 +51,11 @@ func CompletionRequest(w http.ResponseWriter, r *http.Request) {
 	query_req := struct {
 		Ingredients string `validate:"nonzero"`
 	}{}
-	json.Unmarshal(body, &query_req)
+	err = json.Unmarshal(body, &query_req)
+	if err != nil {
+		error_code = err.Error()
+		return
+	}
 	if errs := validator.Validate(query_req); errs != nil {
 		error_code = "Invalid request: " + errs.Error()
 		return
@@ -67,5 +75,5 @@ func CompletionRequest(w http.ResponseWriter, r *http.Request) {
 		error_code = "Failed to create completion: " + err.Error()
 		return
 	}
-	fmt.Println("Request Completed Sucessfuly!")
+	log.Println("Request Completed Sucessfuly!")
 }

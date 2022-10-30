@@ -2,14 +2,15 @@ package main
 
 import (
 	"flag"
-	"golang.org/x/time/rate"
 	gogpt "github.com/sashabaranov/go-gpt3"
+	"golang.org/x/time/rate"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"strings"
 	"sync"
+	"time"
 )
 
 const HELP = ` Flags:
@@ -36,7 +37,10 @@ func init() {
 	flags.StringVar(&PORT, "p", "80", "Application Port")
 	flags.StringVar(&API_KEY, "key", "80", "OpenAI API key")
 	flags.StringVar(&API_KEY, "k", "80", "OpenAI API key")
-	flags.Parse(os.Args[1:])
+	err := flags.Parse(os.Args[1:])
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	GptClient = gogpt.NewClient(API_KEY)
 }
@@ -114,9 +118,15 @@ func main() {
 	fs := http.FileServer(http.Dir("../contnent"))
 	mux.Handle("/", FileServerFilter(fs))
 	mux.Handle("/req", CheckMethod("POST", IPLimit(http.HandlerFunc(CompletionRequest))))
-
+	s := &http.Server{
+		Addr:           ":" + PORT,
+		Handler:        mux,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
 	log.Println("Listening on port: ", PORT)
-	if err := http.ListenAndServe(":" + PORT, mux); err != nil {
+	if err := s.ListenAndServe(); err != nil {
 		log.Fatalf("Server error: %s", err.Error())
 	}
 }
